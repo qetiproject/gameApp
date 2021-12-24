@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Text, View } from 'react-native'
+import { ScrollView, Text, View } from 'react-native'
 import { getGamesData } from '../services/gameService'
 import GameListItem from './gameListItem'
 
@@ -19,20 +19,23 @@ const Game = () => {
     }
 
     useEffect(() => {
-        getGameList(2, 1)
+        getGameList(20, 1)
     }, [])
 
     return(
-        <View>
-            <Text>{error}</Text>
-            {
-                gameList.map((gameList, index) => {
-                    return <GameListItem 
-                    gameList={gameList} key={index}
-                    />
-                })
-            }
-        </View>
+        <ScrollView>
+            <View>
+                <Text>{error}</Text>
+                {
+                    gameList.map((gameList, index) => {
+                        return <GameListItem 
+                        gameItem={gameList} key={index}
+                        />
+                    })
+                }
+            </View>
+        </ScrollView>
+        
     )
 }
 

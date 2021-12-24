@@ -1,6 +1,6 @@
-import { Image, Text, View, StyleSheet, Linking  } from "react-native"
+import { Image, Text, View, StyleSheet  } from "react-native"
 import React from 'react'
-import { environment } from "../environments/environment";
+import { useNavigation } from "@react-navigation/native"
 
 const styles = StyleSheet.create({
     container: {
@@ -27,20 +27,21 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 18,
         color: '#fff',
-        marginTop: 5
+        marginTop: 5,
     },
     img: {
-        width: 200, 
-        height: 200
+        width: '100%', 
+        height: 200,
+        textAlign: 'center'
     }
   });
 
-const GameListItem = ({gameList}) => {
-    const url = environment.GameDetailUrl
+const GameListItem = ({gameItem}) => {
+    const navigation = useNavigation()
 
     const { 
-        background_image, name, released, genres, slug
-      } = gameList;
+        background_image, name, released, genres
+      } = gameItem;
 
     return(
         <View style={styles.container} >
@@ -51,7 +52,7 @@ const GameListItem = ({gameList}) => {
                 />
                 <Text 
                     style={styles.title}
-                    onPress={() => { Linking.openURL(`${url}/${slug}`)}}
+                    onPress={() => navigation.navigate('GameDetail', gameItem)}
                 >{name}</Text>
                 <Text style={styles.text}>Release date: {released}
                 </Text>
